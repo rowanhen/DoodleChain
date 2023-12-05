@@ -7,5 +7,5 @@ This is to play with solidity and ethers / hardhat
 yarn
 npx hardhat compile
 npx hardhat test
-npx hardhat run scripts/deploy-hello.ts --network localhost
+npx hardhat run scripts/deploy-X.ts --network localhost
 yarn run dev

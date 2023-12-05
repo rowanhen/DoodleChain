@@ -13,6 +13,7 @@ dist-ssr
 cache
 artifacts
 *.local
+.env
 
 # Editor directories and files
 .vscode/*
