@@ -1,5 +1,6 @@
 import "@nomiclabs/hardhat-ethers";
 import { expect } from "chai";
+import { Contract } from "ethers";
 import { ethers } from "hardhat";
 
 describe("Hero", () => {
@@ -11,7 +12,7 @@ describe("Hero", () => {
     return hero;
   };
 
-  let hero;
+  let hero: Contract;
 
   before(async () => {
     hero = await createHero();

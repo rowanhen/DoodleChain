@@ -1,46 +1,24 @@
-import { ethers } from "ethers";
-import { useEffect, useState } from "react";
 import Counter from "../artifacts/contracts/Counter.sol/Counter.json";
-import { getEth, hasAccounts, requestAccounts } from "./basicEther";
+import { BasicCounter } from "./BasicCounter";
+import { useContract } from "./basic-ether-helpers/useContract";
 
 const App = () => {
-  const [count, setCount] = useState();
-  const [contract, setContract] = useState<ethers.Contract | null>();
+  // const { canvasRef, startDrawing, endDrawing, draw } = useDrawCanvas();
+  const counterContract = "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0";
+  const contract = useContract(counterContract, Counter.abi);
 
-  useEffect(() => {
-    const initContract = async () => {
-      if (!(await hasAccounts()) && !(await requestAccounts())) {
-        throw new Error("no accounts possibly found");
-      }
-
-      const contract = new ethers.Contract(
-        "0x610178da211fef7d417bc0e6fed39f05609ad788",
-        Counter.abi,
-        new ethers.providers.Web3Provider(getEth()).getSigner()
-      );
-
-      const initialCount = await contract.getCounter();
-      setCount(initialCount);
-
-      contract.on(contract.filters.CounterInc(), function (count) {
-        setCount(count);
-      });
-
-      setContract(contract);
-    };
-
-    initContract();
-  }, []);
-
-  const incrementCount = async () => {
-    if (!contract) return;
-    await contract.count();
-  };
+  console.log(contract);
 
   return (
     <>
-      <div>{count}</div>
-      <button onClick={incrementCount}>Increase Count</button>{" "}
+      {/* <HeaderSideBar canvasRef={canvasRef} /> */}
+      {/* <Canvas
+        canvasRef={canvasRef}
+        startDrawing={startDrawing}
+        endDrawing={endDrawing}
+        draw={draw}
+      /> */}
+      <BasicCounter />
     </>
   );
 };
