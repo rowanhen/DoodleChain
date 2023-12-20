@@ -4,18 +4,26 @@ import { ClearCanvas } from "./ClearCanvas";
 import { ConnectWallet } from "./ConnectWallet";
 import { GenericButton } from "./GenericButton";
 import { RoundedButton } from "./RoundedButton";
-import { CanvasType } from "./useDrawCanvas";
+import { useCanvasDataUrlContract } from "./useCanvasDataUrlContract";
+import { CanvasType, CtxType } from "./useDrawCanvas";
 
-export const HeaderSideBar: FC<CanvasType> = ({ canvasRef }) => {
+interface Props {
+  viewMode: boolean;
+  setViewMode: (arg: boolean) => void;
+}
+
+export const HeaderSideBar: FC<CtxType & CanvasType & Props> = ({
+  canvasRef,
+  ctxRef,
+  viewMode,
+  setViewMode,
+}) => {
   const [isHeaderOpen, setHeaderOpen] = useState(true);
   const [isSideBarOpen, setSideBarOpen] = useState(true);
   const [mode, setMode] = useState<"EDIT" | "MANUAL">("EDIT");
+  const { saveCurrentCanvas } = useCanvasDataUrlContract();
 
-  //   let imageData = ctxRef?.current?.getImageData(0, 0, 16, 16);
-
-  //   let binaryData = convertToBinary(imageData);
-
-  //   let uint256Array = binaryToUint256(binaryData);
+  const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
 
   return (
     <Layout>
@@ -26,16 +34,7 @@ export const HeaderSideBar: FC<CanvasType> = ({ canvasRef }) => {
         {isHeaderOpen && (
           <HeaderContent>
             <div>
-              <ClearCanvas canvasRef={canvasRef} />
-              <GenericButton
-                onClick={() => {
-                  //   console.log(imageData);
-                  //   console.log(binaryData);
-                  //   console.log(uint256Array);
-                }}
-              >
-                GET DATA
-              </GenericButton>
+              <ClearCanvas ctxRef={ctxRef} />
               <GenericButton
                 onClick={() => {
                   if (mode === "EDIT") return setMode("MANUAL");
@@ -44,7 +43,18 @@ export const HeaderSideBar: FC<CanvasType> = ({ canvasRef }) => {
               >
                 {mode}
               </GenericButton>
-              <GenericButton onClick={() => {}}>SAVE</GenericButton>
+              <GenericButton
+                onClick={() => {
+                  currentCanvasDataUrl &&
+                    saveCurrentCanvas(currentCanvasDataUrl);
+
+                  if (ctxRef.current) {
+                    ctxRef.current?.clearRect(0, 0, 16, 16);
+                  }
+                }}
+              >
+                SAVE
+              </GenericButton>
             </div>
             <ConnectWallet />
           </HeaderContent>
@@ -60,8 +70,8 @@ export const HeaderSideBar: FC<CanvasType> = ({ canvasRef }) => {
               <RoundedButton onClick={() => setHeaderOpen(!isHeaderOpen)}>
                 3D
               </RoundedButton>
-              <RoundedButton onClick={() => setHeaderOpen(!isHeaderOpen)}>
-                []
+              <RoundedButton onClick={() => setViewMode(!viewMode)}>
+                {`[_]`}
               </RoundedButton>
               <RoundedButton onClick={() => setHeaderOpen(!isHeaderOpen)}>
                 $$
@@ -69,10 +79,10 @@ export const HeaderSideBar: FC<CanvasType> = ({ canvasRef }) => {
             </div>
             <div>
               <RoundedButton onClick={() => setHeaderOpen(!isHeaderOpen)}>
-                {`<$_>`}
+                {`<>`}
               </RoundedButton>
               <RoundedButton onClick={() => setHeaderOpen(!isHeaderOpen)}>
-                :)
+                {`:)`}
               </RoundedButton>
             </div>
           </SideBarContent>

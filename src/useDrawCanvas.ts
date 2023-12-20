@@ -50,8 +50,9 @@ export const useDrawCanvas = () => {
     [isDrawing, canvasRef, ctxRef]
   );
 
-  return { canvasRef, startDrawing, endDrawing, draw };
+  return { canvasRef, ctxRef, startDrawing, endDrawing, draw };
 };
 
 export type ReturnedUseDrawCanvasType = ReturnType<typeof useDrawCanvas>;
+export type CtxType = Pick<ReturnType<typeof useDrawCanvas>, "ctxRef">;
 export type CanvasType = Pick<ReturnType<typeof useDrawCanvas>, "canvasRef">;

@@ -9,6 +9,7 @@ const deploy = async () => {
   return counter;
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 const count = async (counter) => {
   await counter.count();

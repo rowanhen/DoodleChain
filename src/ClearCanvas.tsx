@@ -2,9 +2,9 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { GenericButton } from "./GenericButton";
-import { CanvasType } from "./useDrawCanvas";
+import { CtxType } from "./useDrawCanvas";
 
-export const ClearCanvas: FC<CanvasType> = ({ canvasRef }) => {
+export const ClearCanvas: FC<CtxType> = ({ ctxRef }) => {
   const dialog = document.querySelector("dialog");
 
   return (
@@ -18,9 +18,8 @@ export const ClearCanvas: FC<CanvasType> = ({ canvasRef }) => {
           </GenericButton>
           <GenericButton
             onClick={() => {
-              if (canvasRef.current) {
-                const ctx = canvasRef.current.getContext("2d");
-                ctx?.clearRect(0, 0, 16, 16);
+              if (ctxRef.current) {
+                ctxRef.current?.clearRect(0, 0, 16, 16);
               }
               dialog?.close();
             }}

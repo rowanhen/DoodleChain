@@ -12,7 +12,7 @@ export const ConnectWallet = () => {
       {ethereum && !isConnected && (
         <button onClick={connectWallet}>Connect Wallet</button>
       )}
-      {isConnected && <div>Connected Account: {accounts[0]}</div>}
+      {isConnected && <h5>Connected Account: {accounts[0]}</h5>}
     </div>
   );
 };
