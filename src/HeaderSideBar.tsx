@@ -94,7 +94,7 @@ const Header = styled.div<{ isOpen: boolean }>`
   width: ${({ isOpen }) => (isOpen ? "100vw" : "220px")};
   transition: height 0.3s ease;
   border: 1px solid black;
-  background: white;
+  background: #f2f2f2;
   border-radius: 48px;
   padding: 12px;
   display: flex;
@@ -103,6 +103,7 @@ const Header = styled.div<{ isOpen: boolean }>`
   max-width: calc(100vw - 120px);
   mix-blend-mode: difference;
   z-index: 3;
+  transition: 0.2s;
 `;
 
 const SideBar = styled.div<{ isOpen: boolean }>`
@@ -114,7 +115,7 @@ const SideBar = styled.div<{ isOpen: boolean }>`
   overflow: hidden;
   transition: width 0.3s ease;
   border: 1px solid black;
-  background: white;
+  background: #f2f2f2;
   border-radius: 48px;
   padding: 12px;
   display: flex;
@@ -123,6 +124,7 @@ const SideBar = styled.div<{ isOpen: boolean }>`
   max-height: calc(100vh - 120px);
   mix-blend-mode: difference;
   z-index: 3;
+  transition: 0.2s;
 `;
 
 const SideBarContent = styled.div`

@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { GenericButton } from "./GenericButton";
 import { CanvasType } from "./useDrawCanvas";
 
-const Dialog = styled.dialog``;
-
 export const ClearCanvas: FC<CanvasType> = ({ canvasRef }) => {
   const dialog = document.querySelector("dialog");
 
@@ -15,7 +13,9 @@ export const ClearCanvas: FC<CanvasType> = ({ canvasRef }) => {
         <p>This is a destructive action that cannot be undone.</p>
         <p>Are you sure you want to continue?</p>
         <ButtonContainer>
-          <GenericButton autoFocus>No no no, go back!</GenericButton>
+          <GenericButton autoFocus onClick={() => dialog?.close()}>
+            No no no, go back!
+          </GenericButton>
           <GenericButton
             onClick={() => {
               if (canvasRef.current) {
@@ -33,6 +33,36 @@ export const ClearCanvas: FC<CanvasType> = ({ canvasRef }) => {
     </>
   );
 };
+
+const Dialog = styled.dialog`
+  &[open] {
+    animation: fade-in 0.1s ease-out;
+  }
+
+  &[open]::backdrop {
+    animation: backdrop-fade-in 0.1s ease-out forwards;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: scaleY(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes backdrop-fade-in {
+    0% {
+      background-color: rgb(0 0 0 / 0);
+    }
+    100% {
+      background-color: rgb(0 0 0 / 0.1);
+    }
+  }
+`;
 
 const ButtonContainer = styled.div`
   display: flex;

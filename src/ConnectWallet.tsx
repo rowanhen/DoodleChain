@@ -1,6 +1,6 @@
-import { useAccounts } from "./basic-ether-helpers/useAccounts";
-import { useEthereum } from "./basic-ether-helpers/useEthereum";
-import { useConnectWallet } from "./basic-ether-helpers/useWalletConnect";
+import { useAccounts } from "./basic-eth-helpers/useAccounts";
+import { useEthereum } from "./basic-eth-helpers/useEthereum";
+import { useConnectWallet } from "./basic-eth-helpers/useWalletConnect";
 
 export const ConnectWallet = () => {
   const ethereum = useEthereum();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Counter from "../artifacts/contracts/Counter.sol/Counter.json";
-import { useContract } from "./basic-ether-helpers/useContract";
+import { useContract } from "./basic-eth-helpers/useContract";
 
 //BasicCounter making use of useContract, events, editing, and reading onchain data
 export const BasicCounter = () => {
