@@ -19,9 +19,10 @@ export const EditCanvas: FC<
         width="16px"
         height="16px"
         style={{
-          transform: "scale(20)",
-          background: "lime",
+          transform: "scale(80, 40)",
           imageRendering: "pixelated",
+          background: "#ffd400",
+          filter: "invert(1)",
         }}
       />
     </CanvasContiner>

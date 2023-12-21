@@ -3,8 +3,12 @@ import styled from "styled-components";
 
 export const RoundedButton: FC<
   React.ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ children, onClick }) => {
-  return <Button onClick={onClick}>{children}</Button>;
+> = ({ children, onClick, ...props }) => {
+  return (
+    <Button onClick={onClick} {...props}>
+      {children}
+    </Button>
+  );
 };
 
 const Button = styled.button`

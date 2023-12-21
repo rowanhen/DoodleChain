@@ -7,6 +7,7 @@ const doodleCanvasDataUrlContract =
 
 export const useCanvasDataUrlContract = () => {
   const [canvases, setCanvases] = useState<string[]>([]);
+  const [canvasSaved, setCanvasSaved] = useState(false);
   const contract = useContract(
     doodleCanvasDataUrlContract,
     DoodleCanvasDataUrl.abi
@@ -32,8 +33,17 @@ export const useCanvasDataUrlContract = () => {
     contract.on(contract.filters.CanvasSaved(), (id, canvas: string) => {
       console.log(id, "eventCanvasId");
       console.log(canvas, "eventCanvas");
+      setCanvasSaved(true);
     });
   }, [contract]);
 
-  return { canvases, saveCurrentCanvas };
+  useEffect(() => {
+    if (!canvasSaved) return;
+
+    setTimeout(() => {
+      setCanvasSaved(false);
+    }, 200);
+  }, [canvasSaved]);
+
+  return { canvases, canvasSaved, saveCurrentCanvas };
 };

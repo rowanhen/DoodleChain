@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import { calculateCanvasHeight } from "./helpers";
 
-export const useLoadCanvases = (dataURLs: string[]) => {
+export const useLoadCanvases = (dataURLs: string[], size: number) => {
   const viewCanvasRef = useRef<HTMLCanvasElement>(null);
   const viewCtx = useRef<CanvasRenderingContext2D | null>(null);
-
-  const size = 16; // Size of each small canvas
 
   useEffect(() => {
     const canvas = viewCanvasRef.current;
@@ -14,18 +12,15 @@ export const useLoadCanvases = (dataURLs: string[]) => {
     if (!ctx) return;
 
     ctx.imageSmoothingEnabled = false;
-    ctx.lineCap = "square";
-    ctx.globalAlpha = 1;
-    ctx.strokeStyle = "#000000";
-    ctx.lineWidth = 1;
-    ctx.globalCompositeOperation = "source-over";
     viewCtx.current = ctx;
+
+    const totalSize = calculateCanvasHeight(dataURLs.length);
 
     dataURLs.forEach((dataUrl, index) => {
       const img = new Image();
       img.onload = () => {
-        const x = (index % calculateCanvasHeight(index)) * size; // Adjust these calculations based on your layout
-        const y = Math.floor(index / calculateCanvasHeight(index)) * size;
+        const x = (index % totalSize) * size; // Adjust these calculations based on your layout
+        const y = Math.floor(index / totalSize) * size;
         ctx.drawImage(img, x, y, size, size);
       };
       img.src = dataUrl;

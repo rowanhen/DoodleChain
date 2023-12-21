@@ -16,7 +16,7 @@ export const ClearCanvas: FC<CtxType> = ({ ctxRef }) => {
           <GenericButton autoFocus onClick={() => dialog?.close()}>
             No no no, go back!
           </GenericButton>
-          <GenericButton
+          <DeleteButton
             onClick={() => {
               if (ctxRef.current) {
                 ctxRef.current?.clearRect(0, 0, 16, 16);
@@ -25,7 +25,7 @@ export const ClearCanvas: FC<CtxType> = ({ ctxRef }) => {
             }}
           >
             Do it. Delete it all.
-          </GenericButton>
+          </DeleteButton>
         </ButtonContainer>
       </Dialog>
       <GenericButton onClick={() => dialog?.showModal()}>CLEAR</GenericButton>
@@ -66,4 +66,9 @@ const Dialog = styled.dialog`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const DeleteButton = styled(GenericButton)`
+  color: white;
+  background-color: red;
 `;

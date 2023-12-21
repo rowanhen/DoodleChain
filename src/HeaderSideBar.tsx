@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ClearCanvas } from "./ClearCanvas";
 import { ConnectWallet } from "./ConnectWallet";
@@ -21,12 +21,20 @@ export const HeaderSideBar: FC<CtxType & CanvasType & Props> = ({
   const [isHeaderOpen, setHeaderOpen] = useState(true);
   const [isSideBarOpen, setSideBarOpen] = useState(true);
   const [mode, setMode] = useState<"EDIT" | "MANUAL">("EDIT");
-  const { saveCurrentCanvas } = useCanvasDataUrlContract();
+  const { canvasSaved, saveCurrentCanvas } = useCanvasDataUrlContract();
 
   const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
 
+  useEffect(() => {
+    if (!canvasSaved) return;
+    if (ctxRef.current) {
+      ctxRef.current?.clearRect(0, 0, 16, 16);
+    }
+  }, [canvasSaved]);
+
   return (
     <Layout>
+      <Logo />
       <Header isOpen={isHeaderOpen}>
         <CollapsibleButton onClick={() => setHeaderOpen(!isHeaderOpen)}>
           {isHeaderOpen ? "←" : "→"}
@@ -47,10 +55,6 @@ export const HeaderSideBar: FC<CtxType & CanvasType & Props> = ({
                 onClick={() => {
                   currentCanvasDataUrl &&
                     saveCurrentCanvas(currentCanvasDataUrl);
-
-                  if (ctxRef.current) {
-                    ctxRef.current?.clearRect(0, 0, 16, 16);
-                  }
                 }}
               >
                 SAVE
@@ -96,6 +100,21 @@ const Layout = styled.div`
   position: relative;
 `;
 
+const Logo = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border: 1px solid black;
+  background: #ffb300;
+  border-radius: 48px;
+  border-bottom-right-radius: 0px;
+  padding: 12px;
+  z-index: 4;
+`;
+
 const Header = styled.div<{ isOpen: boolean }>`
   position: absolute;
   top: 0;
@@ -104,14 +123,13 @@ const Header = styled.div<{ isOpen: boolean }>`
   width: ${({ isOpen }) => (isOpen ? "100vw" : "220px")};
   transition: height 0.3s ease;
   border: 1px solid black;
-  background: #f2f2f2;
+  background: #ffffff;
   border-radius: 48px;
   padding: 12px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   max-width: calc(100vw - 120px);
-  mix-blend-mode: difference;
   z-index: 3;
   transition: 0.2s;
 `;
@@ -125,14 +143,13 @@ const SideBar = styled.div<{ isOpen: boolean }>`
   overflow: hidden;
   transition: width 0.3s ease;
   border: 1px solid black;
-  background: #f2f2f2;
+  background: #ffffff;
   border-radius: 48px;
   padding: 12px;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   max-height: calc(100vh - 120px);
-  mix-blend-mode: difference;
   z-index: 3;
   transition: 0.2s;
 `;
