@@ -1,6 +1,10 @@
-# Basic Solidity and Ethers play
+### What is this?
 
-This is to play with solidity and ethers / hardhat
+Its a personal exploration of Solidity, ethers, & hardhat.
+
+The idea is to save canvas data onchain, and view all the unique canvases and drawings saved.
+
+It may spiral into something else, but for now, thats the initial idea!
 
 ### Some commands to help
 
