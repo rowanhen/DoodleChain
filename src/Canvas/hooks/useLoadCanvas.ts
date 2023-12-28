@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { calculateCanvasHeight } from "./helpers";
+import { calculateCanvasHeight } from "../../helpers";
 
 export const useLoadCanvases = (dataURLs: string[], size: number) => {
   const viewCanvasRef = useRef<HTMLCanvasElement>(null);

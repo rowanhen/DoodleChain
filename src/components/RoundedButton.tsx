@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { pixelatedBg } from "../styles";
 
 export const RoundedButton: FC<
   React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -19,7 +20,7 @@ const Button = styled.button`
   align-items: center;
   width: 40px;
   height: 40px;
-  background: none;
-  border: 1px solid black;
   cursor: pointer;
+
+  ${pixelatedBg}
 `;

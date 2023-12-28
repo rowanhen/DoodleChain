@@ -1,8 +1,8 @@
 // ClearCanvas.tsx
 import { FC } from "react";
 import styled from "styled-components";
-import { GenericButton } from "./GenericButton";
-import { CtxType } from "./useDrawCanvas";
+import { GenericButton } from "../components/GenericButton";
+import { CtxType } from "./hooks/useDrawCanvas";
 
 export const ClearCanvas: FC<CtxType> = ({ ctxRef }) => {
   const dialog = document.querySelector("dialog");
@@ -13,9 +13,9 @@ export const ClearCanvas: FC<CtxType> = ({ ctxRef }) => {
         <p>This is a destructive action that cannot be undone.</p>
         <p>Are you sure you want to continue?</p>
         <ButtonContainer>
-          <GenericButton autoFocus onClick={() => dialog?.close()}>
+          <GoBackButton autoFocus onClick={() => dialog?.close()}>
             No no no, go back!
-          </GenericButton>
+          </GoBackButton>
           <DeleteButton
             onClick={() => {
               if (ctxRef.current) {
@@ -71,4 +71,9 @@ const ButtonContainer = styled.div`
 const DeleteButton = styled(GenericButton)`
   color: white;
   background-color: red;
+`;
+
+const GoBackButton = styled(GenericButton)`
+  color: white;
+  background-color: lime;
 `;

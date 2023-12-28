@@ -1,6 +1,8 @@
+import styled from "styled-components";
 import { useAccounts } from "./basic-eth-helpers/useAccounts";
 import { useEthereum } from "./basic-eth-helpers/useEthereum";
 import { useConnectWallet } from "./basic-eth-helpers/useWalletConnect";
+import { GenericButton } from "./components/GenericButton";
 
 export const ConnectWallet = () => {
   const ethereum = useEthereum();
@@ -10,9 +12,16 @@ export const ConnectWallet = () => {
   return (
     <div>
       {ethereum && !isConnected && (
-        <button onClick={connectWallet}>Connect Wallet</button>
+        <GenericButton onClick={connectWallet}>Connect Wallet</GenericButton>
       )}
-      {isConnected && <h5>Connected Account: {accounts[0]}</h5>}
+      {isConnected && (
+        <ConnectedAccount>Connected Account: {accounts[0]}</ConnectedAccount>
+      )}
     </div>
   );
 };
+
+const ConnectedAccount = styled.h5`
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+`;

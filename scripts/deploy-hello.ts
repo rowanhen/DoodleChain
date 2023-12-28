@@ -13,6 +13,7 @@ const deploy = async () => {
   return hello;
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 const sayHello = async (hello) => {
   console.log("Say Hello:", await hello.hello());

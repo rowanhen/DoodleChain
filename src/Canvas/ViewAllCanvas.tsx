@@ -1,7 +1,8 @@
+import styled from "styled-components";
+import { calculateCanvasHeight } from "../helpers";
 import { CanvasContiner } from "./EditCanvas";
-import { calculateCanvasHeight } from "./helpers";
-import { useCanvasDataUrlContract } from "./useCanvasDataUrlContract";
-import { useLoadCanvases } from "./useLoadCanvas";
+import { useCanvasDataUrlContract } from "./hooks/useCanvasDataUrlContract";
+import { useLoadCanvases } from "./hooks/useLoadCanvas";
 
 const CANVAS_SIZE = 128;
 
@@ -19,17 +20,12 @@ export const ViewAllCanvas = () => {
         zIndex: "1",
       }}
     >
-      <canvas
-        ref={viewCanvasRef}
-        width={width}
-        height={height}
-        style={{
-          transform: "scale(1.5, 0.75)",
-          imageRendering: "pixelated",
-          background: "#ffd400",
-          filter: "invert(1)",
-        }}
-      />
+      <Canvas ref={viewCanvasRef} width={width} height={height} />
     </CanvasContiner>
   );
 };
+
+export const Canvas = styled.canvas`
+  transform: scale(1.5, 0.75);
+  image-rendering: pixelated;
+`;

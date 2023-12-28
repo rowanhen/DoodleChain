@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { pixelatedBg } from "../styles";
 
 export const GenericButton: FC<
   React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -12,7 +13,11 @@ export const GenericButton: FC<
 };
 
 const Button = styled.button`
-  background: none;
-  border: 1px solid black;
   cursor: pointer;
+  border: none;
+  min-height: 40px;
+  min-width: 68px;
+  aspect-ratio: 2;
+
+  ${pixelatedBg}
 `;

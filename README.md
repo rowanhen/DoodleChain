@@ -11,5 +11,7 @@ It may spiral into something else, but for now, thats the initial idea!
 yarn
 npx hardhat compile
 npx hardhat test
+npx hardhat node
 npx hardhat run scripts/deploy-X.ts --network localhost
 yarn run dev
+metamask -> advanced -> reset nonce data

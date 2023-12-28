@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { EditCanvas } from "./EditCanvas";
+import { EditCanvas } from "./Canvas/EditCanvas";
+import { ViewAllCanvas } from "./Canvas/ViewAllCanvas";
+import { useDrawCanvas } from "./Canvas/hooks/useDrawCanvas";
 import { HeaderSideBar } from "./HeaderSideBar";
-import { ViewAllCanvas } from "./ViewAllCanvas";
-import { useDrawCanvas } from "./useDrawCanvas";
 
 const App = () => {
   const { canvasRef, ctxRef, startDrawing, endDrawing, draw } = useDrawCanvas();

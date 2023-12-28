@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { ReturnedUseDrawCanvasType } from "./useDrawCanvas";
+import { ReturnedUseDrawCanvasType } from "./hooks/useDrawCanvas";
 
 export const EditCanvas: FC<
   Pick<
@@ -10,7 +10,7 @@ export const EditCanvas: FC<
 > = ({ canvasRef, startDrawing, endDrawing, draw }) => {
   return (
     <CanvasContiner>
-      <canvas
+      <Canvas
         ref={canvasRef}
         onMouseDown={startDrawing}
         onMouseUp={endDrawing}
@@ -18,12 +18,7 @@ export const EditCanvas: FC<
         onMouseMove={draw}
         width="16px"
         height="16px"
-        style={{
-          transform: "scale(80, 40)",
-          imageRendering: "pixelated",
-          background: "#ffd400",
-          filter: "invert(1)",
-        }}
+        style={{}}
       />
     </CanvasContiner>
   );
@@ -38,4 +33,9 @@ export const CanvasContiner = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100vw;
+`;
+
+export const Canvas = styled.canvas`
+  transform: scale(80, 40);
+  image-rendering: pixelated;
 `;
