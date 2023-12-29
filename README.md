@@ -11,6 +11,7 @@
 - Deploy to testnet not just locally
 - Save current canvas to localStorage to prevent destructive view changes
 - Toast events
+- TESTS
 
 ### What is this?
 
