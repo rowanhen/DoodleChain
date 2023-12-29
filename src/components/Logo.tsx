@@ -1,11 +1,16 @@
+import { FC } from "react";
 import styled, { css } from "styled-components";
 
-export const Logo = () => {
+export const Logo: FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  ...props
+}) => {
   return (
-    <button>
-      <LogoOuter />
-      <LogoInner />
-    </button>
+    <LogoButton>
+      <LogoOuter {...props}>
+        <LogoInner />
+        <LogoInner />
+      </LogoOuter>
+    </LogoButton>
   );
 };
 
@@ -50,26 +55,27 @@ const pixelatedBg = css`
   );
 `;
 
+const LogoButton = styled.button`
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+`;
+
 const LogoOuter = styled.div`
-  position: absolute;
-  top: -24px;
-  left: -24px;
-  width: 64px;
-  height: 64px;
   overflow: hidden;
-  background: #000000;
-  padding: 32px;
+  background: #0000ff;
+  padding: 12px;
   z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 
   ${pixelatedBg}
 `;
 
 const LogoInner = styled.div`
-  position: absolute;
-  top: -16px;
-  left: -16px;
-  width: 64px;
-  height: 64px;
   overflow: hidden;
   background: #ffffff;
   padding: 24px;

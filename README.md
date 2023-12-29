@@ -1,3 +1,17 @@
+### WIP
+
+### Future features:
+
+- Save img
+- Purchase img
+- Offer price
+- 3D View
+- 3D All canvas view
+- Use Diamond contracts
+- Deploy to testnet not just locally
+- Save current canvas to localStorage to prevent destructive view changes
+- Toast events
+
 ### What is this?
 
 Its a personal exploration of Solidity, ethers, & hardhat.

@@ -21,7 +21,7 @@ export const ViewAllCanvas = () => {
   return (
     <CanvasContiner
       style={{
-        zIndex: "1",
+        zIndex: 3,
       }}
     >
       {canvases.map((canvasImg, index) => {
@@ -33,8 +33,8 @@ export const ViewAllCanvas = () => {
               position: "absolute",
               top: y,
               left: x,
-              width: width,
-              height: height,
+              width,
+              height,
             }}
             onClick={() => {
               setSelectedCanvas(canvasImg);
@@ -45,29 +45,43 @@ export const ViewAllCanvas = () => {
           </ImgButton>
         );
       })}
-      <Modal>
-        <ImgButton
+      <Modal title={crypto.randomUUID()}>
+        <Img
+          src={selectedCanvas}
           style={{
-            width: width,
-            height: height,
+            width,
+            height,
           }}
-        >
-          <Img src={selectedCanvas} />
-        </ImgButton>
+        />
       </Modal>
     </CanvasContiner>
   );
 };
 
 const ImgButton = styled.button`
-  transition: 0.2s;
+  transition: 0.9s;
+  background: #ffffff;
   &:hover {
-    background: red;
+    background: #0000ff;
     cursor: pointer;
+
+    img {
+      filter: invert(1);
+    }
+  }
+  &:focus {
+    background: #0000ff;
+    cursor: pointer;
+
+    img {
+      filter: invert(1);
+    }
   }
 `;
 
 const Img = styled.img`
+  transition: 0.9s;
+  filter: invert(0);
   width: 100%;
   image-rendering: pixelated;
   -webkit-user-drag: none;

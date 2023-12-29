@@ -13,7 +13,5 @@ export const GenericButton: FC<
 
 const Button = styled.button`
   cursor: pointer;
-  min-height: 40px;
-  min-width: 68px;
-  aspect-ratio: 2;
+  padding: 12px;
 `;
