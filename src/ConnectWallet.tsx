@@ -22,6 +22,5 @@ export const ConnectWallet = () => {
 };
 
 const ConnectedAccount = styled.h5`
-  color: white;
   font-family: Arial, Helvetica, sans-serif;
 `;

@@ -1,14 +1,54 @@
-import styled from "styled-components";
-import { pixelatedBg } from "../styles";
+import styled, { css } from "styled-components";
 
 export const Logo = () => {
   return (
-    <div>
+    <button>
       <LogoOuter />
       <LogoInner />
-    </div>
+    </button>
   );
 };
+
+const pixelatedBg = css`
+  clip-path: polygon(
+    0px calc(100% - 20px),
+    4px calc(100% - 20px),
+    4px calc(100% - 12px),
+    8px calc(100% - 12px),
+    8px calc(100% - 8px),
+    12px calc(100% - 8px),
+    12px calc(100% - 4px),
+    20px calc(100% - 4px),
+    20px 100%,
+    calc(100% - 20px) 100%,
+    calc(100% - 20px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 4px),
+    calc(100% - 12px) calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 8px),
+    calc(100% - 8px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 12px),
+    calc(100% - 4px) calc(100% - 20px),
+    100% calc(100% - 20px),
+    100% 20px,
+    calc(100% - 4px) 20px,
+    calc(100% - 4px) 12px,
+    calc(100% - 8px) 12px,
+    calc(100% - 8px) 8px,
+    calc(100% - 12px) 8px,
+    calc(100% - 12px) 4px,
+    calc(100% - 20px) 4px,
+    calc(100% - 20px) 0px,
+    20px 0px,
+    20px 4px,
+    12px 4px,
+    12px 8px,
+    8px 8px,
+    8px 12px,
+    4px 12px,
+    4px 20px,
+    0px 20px
+  );
+`;
 
 const LogoOuter = styled.div`
   position: absolute;
@@ -17,7 +57,7 @@ const LogoOuter = styled.div`
   width: 64px;
   height: 64px;
   overflow: hidden;
-  background: #0000ff;
+  background: #000000;
   padding: 32px;
   z-index: 4;
 
@@ -32,7 +72,7 @@ const LogoInner = styled.div`
   height: 64px;
   overflow: hidden;
   background: #ffffff;
-  padding: 12px;
+  padding: 24px;
   z-index: 4;
 
   ${pixelatedBg}

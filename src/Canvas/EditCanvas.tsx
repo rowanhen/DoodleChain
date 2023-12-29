@@ -18,7 +18,6 @@ export const EditCanvas: FC<
         onMouseMove={draw}
         width="16px"
         height="16px"
-        style={{}}
       />
     </CanvasContiner>
   );
@@ -36,6 +35,6 @@ export const CanvasContiner = styled.div`
 `;
 
 export const Canvas = styled.canvas`
-  transform: scale(80, 40);
+  transform: scale(40, 40);
   image-rendering: pixelated;
 `;
