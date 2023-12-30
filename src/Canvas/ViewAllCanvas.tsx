@@ -1,16 +1,22 @@
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useModal } from "../components/Modal/useModal";
 import { calculateCanvasHeight } from "../helpers";
-import { CanvasContiner } from "./EditCanvas";
 import { useCanvasDataUrlContract } from "./hooks/useCanvasDataUrlContract";
+import { useCanvasFetcher } from "./hooks/useCanvasFetcher";
 
 const CANVAS_SIZE = 64;
 
 export const ViewAllCanvas = () => {
   const { open, Modal } = useModal();
-  const { canvases } = useCanvasDataUrlContract();
-  const [selectedCanvas, setSelectedCanvas] = useState("");
+
+  const contract = useCanvasDataUrlContract();
+  const { canvases } = useCanvasFetcher(contract);
+
+  const [selectedCanvas, setSelectedCanvas] = useState<{
+    canvasData: string;
+    index: number | null;
+  }>({ canvasData: "", index: null });
 
   const size = calculateCanvasHeight(canvases.length) * CANVAS_SIZE;
   const width = size + "px";
@@ -19,48 +25,60 @@ export const ViewAllCanvas = () => {
   const totalSize = calculateCanvasHeight(canvases.length);
 
   return (
-    <CanvasContiner
+    <Container
       style={{
-        zIndex: 3,
+        display: "grid",
+        gridTemplateColumns: `repeat(${totalSize}, ${width})`,
+        gap: "24px",
       }}
     >
       {canvases.map((canvasImg, index) => {
-        const x = (index % totalSize) * size; // Adjust these calculations based on your layout
-        const y = Math.floor(index / totalSize) * size;
         return (
           <ImgButton
             style={{
-              position: "absolute",
-              top: y,
-              left: x,
               width,
               height,
             }}
             onClick={() => {
-              setSelectedCanvas(canvasImg);
+              setSelectedCanvas({ canvasData: canvasImg, index });
               open();
             }}
+            selected={selectedCanvas.index === index}
           >
             <Img src={canvasImg} />
           </ImgButton>
         );
       })}
-      <Modal title={crypto.randomUUID()}>
+      <Modal title="Viewing canvas">
         <Img
-          src={selectedCanvas}
+          src={selectedCanvas.canvasData}
           style={{
             width,
             height,
           }}
         />
       </Modal>
-    </CanvasContiner>
+    </Container>
   );
 };
 
-const ImgButton = styled.button`
+const Container = styled.div`
+  z-index: 3;
+`;
+
+const ImgButton = styled.button<{ selected: boolean }>`
   transition: 0.9s;
-  background: #ffffff;
+  background: #eeeeee;
+  ${({ selected }) =>
+    selected &&
+    css`
+      background: #0000ff;
+      cursor: pointer;
+
+      img {
+        filter: invert(1);
+      }
+    `}
   &:hover {
     background: #0000ff;
     cursor: pointer;

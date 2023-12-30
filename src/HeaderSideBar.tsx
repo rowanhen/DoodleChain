@@ -8,9 +8,16 @@ import { RoundedButton } from "./components/RoundedButton";
 interface Props {
   viewMode: boolean;
   setViewMode: (arg: boolean) => void;
+  activityTabOpen: boolean;
+  setActivityTabOpen: (newValue: boolean | undefined) => void;
 }
 
-export const HeaderSideBar: FC<Props> = ({ viewMode, setViewMode }) => {
+export const HeaderSideBar: FC<Props> = ({
+  viewMode,
+  setViewMode,
+  activityTabOpen,
+  setActivityTabOpen,
+}) => {
   return (
     <>
       <Content type="header">
@@ -24,6 +31,9 @@ export const HeaderSideBar: FC<Props> = ({ viewMode, setViewMode }) => {
           <RoundedButton onClick={() => ""}>3D</RoundedButton>
           <GenericButton onClick={() => setViewMode(!viewMode)}>
             TOGGLE: {viewMode ? "ALL" : "EDIT"}
+          </GenericButton>
+          <GenericButton onClick={() => setActivityTabOpen(!activityTabOpen)}>
+            ACTIVITY
           </GenericButton>
         </div>
       </Content>

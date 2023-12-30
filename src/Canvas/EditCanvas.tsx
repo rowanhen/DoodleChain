@@ -3,11 +3,15 @@ import styled from "styled-components";
 import { GenericButton } from "../components/GenericButton";
 import { ClearCanvas } from "./ClearCanvas";
 import { useCanvasDataUrlContract } from "./hooks/useCanvasDataUrlContract";
+import { useCanvasEventListener } from "./hooks/useCanvasEventListener";
+import { useCanvasSaver } from "./hooks/useCanvasSaver";
 import { useDrawCanvas } from "./hooks/useDrawCanvas";
 
 export const EditCanvas: FC = () => {
   const { canvasRef, ctxRef, startDrawing, endDrawing, draw } = useDrawCanvas();
-  const { canvasSaved, saving, saveCurrentCanvas } = useCanvasDataUrlContract();
+  const contract = useCanvasDataUrlContract();
+  const { saving, saveCurrentCanvas } = useCanvasSaver(contract);
+  const { canvasSaved } = useCanvasEventListener(contract);
 
   const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
 
@@ -19,7 +23,7 @@ export const EditCanvas: FC = () => {
   }, [canvasSaved]);
 
   return (
-    <CanvasContiner>
+    <CanvasContainer>
       <CanvasWrapper>
         <Canvas
           ref={canvasRef}
@@ -41,11 +45,11 @@ export const EditCanvas: FC = () => {
           {saving ? "SAVING..." : "SAVE"}
         </GenericButton>
       </ButtonsContainer>
-    </CanvasContiner>
+    </CanvasContainer>
   );
 };
 
-export const CanvasContiner = styled.div`
+export const CanvasContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -57,7 +61,7 @@ export const CanvasContiner = styled.div`
   width: 100vw;
 `;
 
-export const CanvasWrapper = styled.div`
+const CanvasWrapper = styled.div`
   position: relative;
   height: 640px;
   width: 640px;
@@ -70,12 +74,12 @@ export const CanvasWrapper = styled.div`
   border-radius: 4px;
 `;
 
-export const Canvas = styled.canvas`
+const Canvas = styled.canvas`
   transform: scale(40, 40);
   image-rendering: pixelated;
 `;
 
-export const ButtonsContainer = styled.div`
+const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   z-index: 4;

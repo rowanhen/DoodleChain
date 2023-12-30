@@ -4,12 +4,22 @@ pragma solidity ^0.8.0;
 contract DoodleCanvasDataUrl {
     string[] public canvases;
 
-    event CanvasSaved(uint256 indexed canvasId, string canvasData);
+    event CanvasSaved(
+        uint256 indexed canvasId,
+        string canvasData,
+        uint256 timestamp,
+        address indexed user
+    );
 
     // Function to save a canvas as a Base64 string
     function saveCanvas(string memory canvasData) public {
         canvases.push(canvasData);
-        emit CanvasSaved(canvases.length - 1, canvasData);
+        emit CanvasSaved(
+            canvases.length - 1,
+            canvasData,
+            block.timestamp,
+            msg.sender
+        );
     }
 
     // Function to get the total number of canvases

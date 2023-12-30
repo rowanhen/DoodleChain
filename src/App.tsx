@@ -1,17 +1,29 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { ActivityTab } from "./Activity/ActivityTab";
 import { EditCanvas } from "./Canvas/EditCanvas";
 import { ViewAllCanvas } from "./Canvas/ViewAllCanvas";
 import { HeaderSideBar } from "./HeaderSideBar";
+import { useLocalStorageNonString } from "./hooks/useNonStringLocalStorage";
 
 const App = () => {
   const [viewMode, setViewMode] = useState(false);
+  const [activityTabOpen, setActivityTabOpen] = useLocalStorageNonString(
+    "activityTabOpen",
+    false
+  );
 
   return (
     <AppContainer>
-      <HeaderSideBar viewMode={viewMode} setViewMode={setViewMode} />
+      <HeaderSideBar
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        activityTabOpen={activityTabOpen}
+        setActivityTabOpen={setActivityTabOpen}
+      />
       {viewMode && <ViewAllCanvas />}
       {!viewMode && <EditCanvas />}
+      {activityTabOpen && <ActivityTab />}
     </AppContainer>
   );
 };
