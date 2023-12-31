@@ -9,9 +9,7 @@
 - 3D All canvas view
 - Use Diamond contracts
 - Deploy to testnet not just locally
-- Save current canvas to localStorage to prevent destructive view changes
 - Toast events
-- Activity tab
 - TESTS
 
 ### What is this?

@@ -65,7 +65,7 @@ export const useDrawCanvas = () => {
   );
 
   const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
-  const debouncedCanvasData = useDebounce(currentCanvasDataUrl, 1000);
+  const debouncedCanvasData = useDebounce(currentCanvasDataUrl, 300);
 
   //TODO: there is a bug where fast refreshing causes localStorage to be overwritten by blank canvas
   useEffect(() => {

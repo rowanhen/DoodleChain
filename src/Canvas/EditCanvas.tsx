@@ -20,7 +20,7 @@ export const EditCanvas: FC = () => {
     setLocalCanvasData,
   } = useDrawCanvas();
 
-  const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
+  const currentCanvasDataUrl = canvasRef?.current?.toDataURL("image/png", 1);
 
   const clearCanvas = () => {
     if (ctxRef.current) {

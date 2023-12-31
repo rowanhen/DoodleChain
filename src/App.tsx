@@ -25,14 +25,13 @@ const App = () => {
       />
       {viewMode && <ViewAllCanvas />}
       {!viewMode && <EditCanvas />}
-      {activityTabOpen && <ActivityTab />}
+      {activityTabOpen && (
+        <ActivityTab setActivityTabOpen={setActivityTabOpen} />
+      )}
     </AppContainer>
   );
 };
 
-const AppContainer = styled.div`
-  padding: 24px;
-  height: 100vh;
-`;
+const AppContainer = styled.div``;
 
 export default App;

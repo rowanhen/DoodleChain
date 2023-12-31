@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
+import { GenericButton } from "../components/GenericButton";
 import { useModal } from "../components/Modal/useModal";
 import { calculateCanvasHeight } from "../helpers";
 import { useCanvasDataUrlContract } from "./hooks/useCanvasDataUrlContract";
 import { useCanvasFetcher } from "./hooks/useCanvasFetcher";
 
-const CANVAS_SIZE = 64;
+const CANVAS_SIZE = 192;
 
 export const ViewAllCanvas = () => {
   const { open, Modal } = useModal();
@@ -18,11 +19,22 @@ export const ViewAllCanvas = () => {
     index: number | null;
   }>({ canvasData: "", index: null });
 
-  const size = calculateCanvasHeight(canvases.length) * CANVAS_SIZE;
-  const width = size + "px";
-  const height = size + "px";
+  const width = CANVAS_SIZE + "px";
+  const height = CANVAS_SIZE + "px";
 
   const totalSize = calculateCanvasHeight(canvases.length);
+
+  const downloadCanvas = () => {
+    const downloadLink = document.createElement("a");
+    downloadLink.setAttribute("download", "DoodleCanvas.png");
+    const dataURL = selectedCanvas.canvasData;
+    const url = dataURL.replace(
+      /^data:image\/png/,
+      "data:application/octet-stream"
+    );
+    downloadLink.setAttribute("href", url);
+    downloadLink.click();
+  };
 
   return (
     <div
@@ -59,14 +71,26 @@ export const ViewAllCanvas = () => {
             </ImgButton>
           );
         })}
-        <Modal title="Viewing canvas 🖼️">
+        <Modal
+          title="Viewing canvas 🖼️"
+          onClose={() => setSelectedCanvas({ canvasData: "", index: null })}
+        >
           <Img
             src={selectedCanvas.canvasData}
             style={{
-              width,
-              height,
+              width: CANVAS_SIZE * 2 + "px",
+              height: CANVAS_SIZE * 2 + "px",
             }}
           />
+          <div>
+            <GenericButton onClick={downloadCanvas}>SAVE</GenericButton>
+            <GenericButton onClick={() => console.log("offer")}>
+              OFFER
+            </GenericButton>
+            <GenericButton onClick={() => console.log("buy")}>
+              BUY
+            </GenericButton>
+          </div>
         </Modal>
       </Container>
     </div>
@@ -79,6 +103,8 @@ const Container = styled.div`
 
 const ImgButton = styled.button<{ selected: boolean }>`
   transition: 0.9s;
+  overflow: hidden;
+  border-radius: 4px;
   background: #eeeeee;
   ${({ selected }) =>
     selected &&

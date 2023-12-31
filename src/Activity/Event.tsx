@@ -21,7 +21,7 @@ export const GenericEvent: FC<GenericEventProps> = ({ event }) => {
 };
 
 const Container = styled.div`
-  margin-top: 12px;
+  margin-bottom: 12px;
   border: 1px solid black;
   border-radius: 3px;
   padding: 8px;

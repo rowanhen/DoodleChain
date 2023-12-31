@@ -1,25 +1,42 @@
+import { FC } from "react";
 import styled from "styled-components";
 import { useCanvasDataUrlContract } from "../Canvas/hooks/useCanvasDataUrlContract";
 import {
   SavedCanvasEvent,
   useCanvasEventListener,
 } from "../Canvas/hooks/useCanvasEventListener";
+import { GenericButton } from "../components/GenericButton";
 import { GenericEvent } from "./Event";
 
 export type LocalStorageActivityTab = {
   open: boolean;
 };
 
-export const ActivityTab = () => {
+export const ActivityTab: FC<{
+  setActivityTabOpen: (arg: boolean) => void;
+}> = ({ setActivityTabOpen }) => {
   const contract = useCanvasDataUrlContract();
   const { recentlySaved } = useCanvasEventListener(contract);
 
   return (
     <Container>
-      <Title>Activity</Title>
-      {recentlySaved.map((event: SavedCanvasEvent, index) => {
-        return <GenericEvent key={index} event={event} />;
-      })}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Title>Activity</Title>
+        <GenericButton onClick={() => setActivityTabOpen(false)}>
+          X
+        </GenericButton>
+      </div>
+      <EventsContainer>
+        {recentlySaved.map((event: SavedCanvasEvent, index) => {
+          return <GenericEvent key={index} event={event} />;
+        })}
+      </EventsContainer>
     </Container>
   );
 };
@@ -33,7 +50,15 @@ const Container = styled.div`
   right: 0;
   top: 0;
   width: 300px;
-  height: 100vh;
   border-left: 1px solid black;
+  padding: 12px;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const EventsContainer = styled.div`
+  height: calc(100% - 500px);
+  overflow: scroll;
+  border: 1px solid black;
   padding: 12px;
 `;

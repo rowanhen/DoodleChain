@@ -5,12 +5,14 @@ import { RoundedButton } from "../RoundedButton";
 export type ModalProps = {
   title?: string;
   children?: ReactNode;
+  onClose?: () => void;
 };
 
 export const ModalComponent = forwardRef<HTMLDialogElement, ModalProps>(
-  ({ children, title }, ref: Ref<HTMLDialogElement>) => {
+  ({ children, title, onClose }, ref: Ref<HTMLDialogElement>) => {
     const handleClose = () => {
       if (typeof ref !== "function" && ref?.current) {
+        onClose && onClose();
         ref.current.close();
       }
     };
@@ -41,6 +43,7 @@ const Title = styled.h5`
 const CloseButton = styled(RoundedButton)``;
 
 const Dialog = styled.dialog`
+  border-radius: 4px;
   &[open] {
     animation: fade-in 0.1s ease-out;
   }

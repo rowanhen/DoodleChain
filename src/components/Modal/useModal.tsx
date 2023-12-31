@@ -14,8 +14,8 @@ export const useModal = () => {
   }, []);
 
   const Modal = useCallback(
-    ({ children, title }: ModalProps) => (
-      <ModalComponent ref={modalRef} title={title}>
+    ({ children, title, onClose }: ModalProps) => (
+      <ModalComponent ref={modalRef} title={title} onClose={onClose}>
         {children}
       </ModalComponent>
     ),
