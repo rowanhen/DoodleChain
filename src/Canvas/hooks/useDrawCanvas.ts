@@ -6,7 +6,7 @@ export const useDrawCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [, setLocalCanvasData] = useLocalStorageNonString(
+  const [localCanvasData, setLocalCanvasData] = useLocalStorageNonString(
     "localCanvasData",
     ""
   );
@@ -24,6 +24,14 @@ export const useDrawCanvas = () => {
     ctx.lineWidth = 1;
     ctx.globalCompositeOperation = "source-over";
     ctxRef.current = ctx;
+
+    if (localCanvasData) {
+      const img = new Image();
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0);
+      };
+      img.src = localCanvasData;
+    }
   }, []);
 
   const startDrawing = useCallback(
@@ -59,6 +67,7 @@ export const useDrawCanvas = () => {
   const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
   const debouncedCanvasData = useDebounce(currentCanvasDataUrl, 1000);
 
+  //TODO: there is a bug where fast refreshing causes localStorage to be overwritten by blank canvas
   useEffect(() => {
     if (ctxRef.current) {
       setLocalCanvasData(debouncedCanvasData);
