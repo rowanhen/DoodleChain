@@ -74,7 +74,14 @@ export const useDrawCanvas = () => {
     }
   }, [debouncedCanvasData]);
 
-  return { canvasRef, ctxRef, startDrawing, endDrawing, draw };
+  return {
+    canvasRef,
+    ctxRef,
+    setLocalCanvasData,
+    startDrawing,
+    endDrawing,
+    draw,
+  };
 };
 
 export type ReturnedUseDrawCanvasType = ReturnType<typeof useDrawCanvas>;

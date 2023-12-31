@@ -7,14 +7,14 @@ type GenericEventProps = { event: SavedCanvasEvent };
 export const GenericEvent: FC<GenericEventProps> = ({ event }) => {
   return (
     <Container>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <p style={{ display: "flex", justifyContent: "space-between" }}>
         <ID>ID: {event.id}</ID>
         <Time>
           {new Intl.DateTimeFormat("en-US").format(
             new Date(Number(event.timestamp) * 1000)
           )}
         </Time>
-      </div>
+      </p>
       <User>By: {event.user}</User>
     </Container>
   );
@@ -27,8 +27,8 @@ const Container = styled.div`
   padding: 8px;
 `;
 
-const Time = styled.p``;
-const ID = styled.p``;
-const User = styled.p`
+const Time = styled.span``;
+const ID = styled.span``;
+const User = styled.span`
   word-wrap: break-word;
 `;

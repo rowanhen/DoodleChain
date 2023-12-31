@@ -59,7 +59,7 @@ export const ViewAllCanvas = () => {
             </ImgButton>
           );
         })}
-        <Modal title="Viewing canvas">
+        <Modal title="Viewing canvas 🖼️">
           <Img
             src={selectedCanvas.canvasData}
             style={{

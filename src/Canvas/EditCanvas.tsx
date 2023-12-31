@@ -11,15 +11,27 @@ export const EditCanvas: FC = () => {
   const contract = useCanvasDataUrlContract();
   const { saving, saveCurrentCanvas } = useCanvasSaver(contract);
   const { canvasSaved } = useCanvasEventListener(contract);
-  const { canvasRef, ctxRef, startDrawing, endDrawing, draw } = useDrawCanvas();
+  const {
+    canvasRef,
+    ctxRef,
+    startDrawing,
+    endDrawing,
+    draw,
+    setLocalCanvasData,
+  } = useDrawCanvas();
 
   const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
 
-  useEffect(() => {
-    if (!canvasSaved) return;
+  const clearCanvas = () => {
     if (ctxRef.current) {
       ctxRef.current?.clearRect(0, 0, 16, 16);
+      setLocalCanvasData(undefined);
     }
+  };
+
+  useEffect(() => {
+    if (!canvasSaved) return;
+    clearCanvas();
   }, [canvasSaved]);
 
   return (
@@ -36,7 +48,7 @@ export const EditCanvas: FC = () => {
         />
       </CanvasWrapper>
       <ButtonsContainer>
-        <ClearCanvas ctxRef={ctxRef} />
+        <ClearCanvas clearCanvas={clearCanvas} />
         <GenericButton
           onClick={() => {
             currentCanvasDataUrl && saveCurrentCanvas(currentCanvasDataUrl);

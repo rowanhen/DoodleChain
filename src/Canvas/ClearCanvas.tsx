@@ -3,9 +3,10 @@ import { FC } from "react";
 import styled from "styled-components";
 import { GenericButton } from "../components/GenericButton";
 import { useModal } from "../components/Modal/useModal";
-import { CtxType } from "./hooks/useDrawCanvas";
 
-export const ClearCanvas: FC<CtxType> = ({ ctxRef }) => {
+export const ClearCanvas: FC<{ clearCanvas: () => void }> = ({
+  clearCanvas,
+}) => {
   const { open, close, Modal } = useModal();
 
   return (
@@ -19,9 +20,7 @@ export const ClearCanvas: FC<CtxType> = ({ ctxRef }) => {
           </GenericButton>
           <GenericButton
             onClick={() => {
-              if (ctxRef.current) {
-                ctxRef.current?.clearRect(0, 0, 16, 16);
-              }
+              clearCanvas();
               close();
             }}
           >

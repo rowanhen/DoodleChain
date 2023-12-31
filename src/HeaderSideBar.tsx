@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import { ConnectWallet } from "./ConnectWallet";
 import { GenericButton } from "./components/GenericButton";
 import { Logo } from "./components/Logo";
-import { RoundedButton } from "./components/RoundedButton";
 
 interface Props {
   viewMode: boolean;
@@ -28,9 +27,8 @@ export const HeaderSideBar: FC<Props> = ({
       </Content>
       <Content type="sidebar">
         <div style={{ marginTop: "24px" }}>
-          <RoundedButton onClick={() => ""}>3D</RoundedButton>
           <GenericButton onClick={() => setViewMode(!viewMode)}>
-            TOGGLE: {viewMode ? "ALL" : "EDIT"}
+            {viewMode ? "EDIT" : "VIEW"}
           </GenericButton>
           <GenericButton onClick={() => setActivityTabOpen(!activityTabOpen)}>
             ACTIVITY
