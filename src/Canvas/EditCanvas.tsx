@@ -8,10 +8,10 @@ import { useCanvasSaver } from "./hooks/useCanvasSaver";
 import { useDrawCanvas } from "./hooks/useDrawCanvas";
 
 export const EditCanvas: FC = () => {
-  const { canvasRef, ctxRef, startDrawing, endDrawing, draw } = useDrawCanvas();
   const contract = useCanvasDataUrlContract();
   const { saving, saveCurrentCanvas } = useCanvasSaver(contract);
   const { canvasSaved } = useCanvasEventListener(contract);
+  const { canvasRef, ctxRef, startDrawing, endDrawing, draw } = useDrawCanvas();
 
   const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
 

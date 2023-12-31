@@ -25,40 +25,51 @@ export const ViewAllCanvas = () => {
   const totalSize = calculateCanvasHeight(canvases.length);
 
   return (
-    <Container
+    <div
       style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${totalSize}, ${width})`,
-        gap: "24px",
+        display: "flex",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      {canvases.map((canvasImg, index) => {
-        return (
-          <ImgButton
+      <Container
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${totalSize}, ${width})`,
+          gap: "24px",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {canvases.map((canvasImg, index) => {
+          return (
+            <ImgButton
+              style={{
+                width,
+                height,
+              }}
+              onClick={() => {
+                setSelectedCanvas({ canvasData: canvasImg, index });
+                open();
+              }}
+              selected={selectedCanvas.index === index}
+            >
+              <Img src={canvasImg} />
+            </ImgButton>
+          );
+        })}
+        <Modal title="Viewing canvas">
+          <Img
+            src={selectedCanvas.canvasData}
             style={{
               width,
               height,
             }}
-            onClick={() => {
-              setSelectedCanvas({ canvasData: canvasImg, index });
-              open();
-            }}
-            selected={selectedCanvas.index === index}
-          >
-            <Img src={canvasImg} />
-          </ImgButton>
-        );
-      })}
-      <Modal title="Viewing canvas">
-        <Img
-          src={selectedCanvas.canvasData}
-          style={{
-            width,
-            height,
-          }}
-        />
-      </Modal>
-    </Container>
+          />
+        </Modal>
+      </Container>
+    </div>
   );
 };
 

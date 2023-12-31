@@ -4,6 +4,7 @@ import { ActivityTab } from "./Activity/ActivityTab";
 import { EditCanvas } from "./Canvas/EditCanvas";
 import { ViewAllCanvas } from "./Canvas/ViewAllCanvas";
 import { HeaderSideBar } from "./HeaderSideBar";
+import { GlobalStyle } from "./globalStyle";
 import { useLocalStorageNonString } from "./hooks/useNonStringLocalStorage";
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
 
   return (
     <AppContainer>
+      <GlobalStyle key="globalstyles" />
       <HeaderSideBar
         viewMode={viewMode}
         setViewMode={setViewMode}
@@ -30,6 +32,7 @@ const App = () => {
 
 const AppContainer = styled.div`
   padding: 24px;
+  height: 100vh;
 `;
 
 export default App;

@@ -24,7 +24,7 @@ export const useCanvasEventListener = (contract: Contract | null) => {
         `Canvas ${event.id} saved by ${event.user} at ${event.timestamp}, with canvasUrl: ${event.canvas}`
       );
       if (!recentlySaved.some((e) => e.id === event.id)) {
-        setRecentlySaved([...recentlySaved, event]);
+        setRecentlySaved([event, ...recentlySaved]);
         setCanvasSaved(true);
         return;
       }

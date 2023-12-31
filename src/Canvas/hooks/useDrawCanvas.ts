@@ -1,9 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useDebounce } from "../../hooks/useDebounce";
+import { useLocalStorageNonString } from "../../hooks/useNonStringLocalStorage";
 
 export const useDrawCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [, setLocalCanvasData] = useLocalStorageNonString(
+    "localCanvasData",
+    ""
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -49,6 +55,15 @@ export const useDrawCanvas = () => {
     },
     [isDrawing, canvasRef, ctxRef]
   );
+
+  const currentCanvasDataUrl = canvasRef?.current?.toDataURL();
+  const debouncedCanvasData = useDebounce(currentCanvasDataUrl, 1000);
+
+  useEffect(() => {
+    if (ctxRef.current) {
+      setLocalCanvasData(debouncedCanvasData);
+    }
+  }, [debouncedCanvasData]);
 
   return { canvasRef, ctxRef, startDrawing, endDrawing, draw };
 };

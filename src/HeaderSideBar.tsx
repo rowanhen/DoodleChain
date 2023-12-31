@@ -44,7 +44,7 @@ export const HeaderSideBar: FC<Props> = ({
 const Content = styled.div<{ type: "header" | "sidebar" }>`
   margin: 24px;
   position: fixed;
-  z-index: 4;
+  z-index: 5;
   top: 0;
   left: 0;
   flex-grow: 1;
