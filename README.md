@@ -11,6 +11,7 @@
 - Deploy to testnet not just locally
 - Toast events
 - TESTS
+- Connect to BASE instead of mainnet
 
 ### What is this?
 
