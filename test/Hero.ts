@@ -34,6 +34,8 @@ describe("Hero", () => {
     }
 
     expect(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       e.message.includes("Please send more money we need 0.05eth")
     ).to.equal(true);
   });
