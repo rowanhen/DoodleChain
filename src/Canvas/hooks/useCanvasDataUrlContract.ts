@@ -2,7 +2,7 @@ import DoodleCanvasDataUrl from "../../../artifacts/contracts/DoodleCanvasDataUr
 import { useContract } from "../../basic-eth-helpers/useContract";
 
 const doodleCanvasDataUrlContract =
-  "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+  "0x22f56EBE56B0664e9a4707E094f7231760Be3124";
 
 export const useCanvasDataUrlContract = () => {
   const contract = useContract(
